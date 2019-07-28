@@ -1,6 +1,12 @@
 <?php
 include_once('../config.php');
 
+if(isset($_SESSION['captcha_code'])){
+    if($_SESSION['captcha_code'] && $_SESSION['captcha_code'] !== $_POST['captcha_code']){
+        die("captcha_code error");
+    }
+}
+
 $email = addslashes($_POST['email']);
 $nickname = addslashes($_POST['nickname']);
 $password = addslashes(hash("sha256", $_POST['password']));

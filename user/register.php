@@ -44,6 +44,13 @@ define('SELF_FILE', __FILE__);
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-4 control-label">Captcha code</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="captcha_code" name="captcha_code" placeholder="Captcha code">
+                        </div>
+                        <img class="col-sm-offset-4 col-sm-8" src="<?php echo (relative(SELF_FILE)); ?>template/captcha.php" onclick="this.src='<?php echo (relative(SELF_FILE)); ?>template/captcha.php?'+Math.random();">
+                    </div>
+                    <div class="form-group">
                         <div class="col-sm-offset-4 col-sm-8">
                             <button type="submit" class="btn btn-default" id="registerButton">Register</button>
                         </div>
@@ -77,12 +84,15 @@ define('SELF_FILE', __FILE__);
             $.post("<?php echo (relative(SELF_FILE)); ?>user/register_submit.php",{
                 email:$("#email").val(),
                 nickname:$("#nickname").val(),
-                password:$("#password").val()
+                password:$("#password").val(),
+                captcha_code:$("#captcha_code").val()
             },
             function(data,status){
                 if(status == "success"){
                     if(data == "success"){
                         $('#register-sucess').modal('show');
+                    }else if(data == "captcha_code error"){
+                        $('#captcha_code-error').modal('show');
                     }else{
                         $('#error-info').text(data);
                         $('#register-error').modal('show');                        
@@ -163,6 +173,21 @@ define('SELF_FILE', __FILE__);
                 <div class="modal-body">An error occurred while registering! <br> Information: <span id="error-info"></span></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="captcha_code-error" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title error" id="myModalLabel">Captcha code Error</h4>
+                </div>
+                <div class="modal-body">The verification code you entered is incorrect.</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
