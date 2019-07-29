@@ -46,7 +46,7 @@ define('SELF_FILE', __FILE__);
                         $row = $result->fetch_assoc();
                         echo "<tr>";
                         echo "<td>".(string)($i + 1)."</td>";
-                        echo "<td>".$row['nickname']."</td>";
+                        echo "<td>".htmlspecialchars($row['nickname'])."</td>";
                         echo "<td>".$row['solved']."</td>";
                         echo "</tr>";
                     }
