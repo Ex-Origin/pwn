@@ -19,7 +19,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
       <?php if(isset($_SESSION['user'])){ ?>
-        <li><a href="#"><?php echo addslashes($_SESSION['user']); ?></a></li>
+        <li><a href="#"><?php echo htmlspecialchars($_SESSION['user']); ?></a></li>
         <li><a href="<?php echo (relative(SELF_FILE)); ?>user/logout.php">Logout</a></li>
       <?php }else{?>
         <li><a href="<?php echo (relative(SELF_FILE)); ?>user/login.php">Login</a></li>
