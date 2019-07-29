@@ -13,7 +13,7 @@ $captch_code = '';
 for ($i = 0; $i < 4; $i++) {
     $fontsize = 10;  //
     $fontcolor = imagecolorallocate($image, rand(0, 120), rand(0, 120), rand(0, 120));//??????
-    $data = 'abcdefghijklmnopqrstuvwxyz1234567890';
+    $data = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
     $fontcontent = substr($data, rand(0, strlen($data)), 1);
     $captch_code .= $fontcontent;
     $x = ($i * 100 / 4) + rand(5, 10);
@@ -21,7 +21,7 @@ for ($i = 0; $i < 4; $i++) {
     imagestring($image, $fontsize, $x, $y, $fontcontent, $fontcolor);
 }
 
-$_SESSION['captcha_code'] = $captch_code;
+$_SESSION['captcha_code'] = strtolower($captch_code);
 
 
 for ($i = 0; $i < 200; $i++) {

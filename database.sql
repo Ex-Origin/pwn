@@ -19,10 +19,20 @@ create table `challenge`(
 drop table if exists `solved`;
 create table `solved`(
     `sid` int primary key auto_increment,
-    `uid` int,
-    `cid` int,
+    `uid` int not null,
+    `cid` int not null,
     `time` char(20) not null,
 
     foreign key(`uid`) REFERENCES `user`(`uid`),
     foreign key(`cid`) REFERENCES `challenge`(`cid`)
+)charset=utf8;
+
+drop table if exists `writeups`;
+create table `writeups`(
+    `wid` int primary key auto_increment,
+    `sid` int not null,
+    `writeup` TEXT,
+    `time` char(20) not null,
+
+    foreign key(`sid`) REFERENCES `solved`(`sid`)
 )charset=utf8;

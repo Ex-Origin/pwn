@@ -11,19 +11,21 @@ define('SELF_FILE', __FILE__);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>challenge</title>
-    
+
     <!-- source_header -->
     <?php include_once(ROOT_DIR.'template/source_header.php'); ?>
 </head>
 
 <body>
-    <!-- header -->
-    <?php include_once(ROOT_DIR.'template/header.php'); ?>
+    <div class="body-wrap boxed-container">
 
-    <div class="container">
-        <h1 class="text-center">Challenge</h1>
-        <div>
-            <?php
+        <!-- header -->
+        <?php include_once(ROOT_DIR.'template/header.php'); ?>
+
+        <div class="container">
+            <h1 class="text-center">Challenge</h1>
+            <div>
+                <?php
             $conn = get_sql_conn();
 
             $user_solved = array();
@@ -44,74 +46,74 @@ define('SELF_FILE', __FILE__);
             $conn->close();
             for($i = 0; $i < ceil($length/4); $i ++){
             ?>
-            <div class="row">
-                <?php
+                <div class="row">
+                    <?php
                 for($ii = 0; $ii < 4; $ii++){
                     if($row = $result->fetch_assoc()){
                         if($user_solved && in_array($row['cid'], $user_solved)){
-                            echo '<div class="col-md-3 col-lg-3 bg-success challenge" cid="'.$row['cid'].'">';
+                            echo '<div class="col-md-3 col-lg-3  challenge" cid="'.$row['cid'].'"><div class="bg-success challenge-inner">';
                         }else{
-                            echo '<div class="col-md-3 col-lg-3 bg-primary challenge" cid="'.$row['cid'].'">';
+                            echo '<div class="col-md-3 col-lg-3  challenge" cid="'.$row['cid'].'"><div class="bg-primary challenge-inner">';
                         }
                         echo '<h3 class="text-center">'.htmlspecialchars($row['name']).'</h3>';
                         echo '<h5 class="text-center">solved: '.htmlspecialchars($row['times']).' times</h5>';
-                        echo '</div>';
+                        echo '</div></div>';
                     }else{
                         break;
                     }
                 }
                 ?>
+                </div>
+                <?php } ?>
             </div>
-            <?php } ?>
         </div>
+
+        <!-- source_footer -->
+        <?php include_once(ROOT_DIR.'template/source_footer.php'); ?>
+
     </div>
 
-    <!-- footer -->
-    <?php include_once(ROOT_DIR.'template/footer.php'); ?>
-    
-    <!-- source_footer -->
-    <?php include_once(ROOT_DIR.'template/source_footer.php'); ?>
+    <script>
+        $(document).ready(function () {
+            $(".challenge").click(function () {
+                $.getJSON("<?php echo (relative(SELF_FILE)); ?>challenge_detail.php", { cid: $(this).attr("cid") }, function (data) {
+                    $("#challenge-info").attr("cid", data.cid);
+                    $("#challenge-name").text(data.name);
+                    $("#challenge-content").html(data.content);
+                    $("#challenge-file").html(data.file.replace(" ", "<br/>"));
+                    if (data.isSolved == "true") {
+                        $("#challenge-flag").hide();
+                        $("#challenge-solved").show();
+                    } else {
+                        $("#challenge-flag").show();
+                        $("#challenge-solved").hide();
+                    }
 
-    <script> 
-    $(document).ready(function(){
-        $(".challenge").click(function(){
-            $.getJSON("<?php echo (relative(SELF_FILE)); ?>challenge_detail.php", {cid: $(this).attr("cid")},function(data){
-                $("#challenge-info").attr("cid", data.cid);
-                $("#challenge-name").text(data.name);
-                $("#challenge-content").html(data.content);
-                $("#challenge-file").html(data.file.replace(" ", "<br/>"));
-                if(data.isSolved == "true"){
-                    $("#challenge-flag").hide();
-                    $("#challenge-solved").show();
-                }else{
-                    $("#challenge-flag").show();
-                    $("#challenge-solved").hide();
-                }
-                
-                $('#challenge-info').modal('show');
+                    $('#challenge-info').modal('show');
+                });
+            });
+
+            $("#flag-submit").click(function () {
+                $.post("<?php echo (relative(SELF_FILE)); ?>flag.php", {
+                    cid: $("#challenge-info").attr("cid"),
+                    flag: $("#flag-content").val()
+                },
+                    function (data, status) {
+                        if (data == "success") {
+                            $("#challenge-flag").hide();
+                            $("#challenge-solved").show();
+                        } else if (data == "failed") {
+                            alert("flag error");
+                        } else {
+                            alert(data);
+                        }
+                    });
             });
         });
-
-        $("#flag-submit").click(function(){
-            $.post("<?php echo (relative(SELF_FILE)); ?>flag.php",{
-                cid:$("#challenge-info").attr("cid"),
-                flag:$("#flag-content").val()
-            },
-            function(data, status){
-                if(data == "success"){
-                    $("#challenge-flag").hide();
-                    $("#challenge-solved").show();
-                }else if(data == "failed"){
-                    alert("flag error");
-                }else{
-                    alert(data);
-                }
-            });
-        });
-    });
     </script>
 
-    <div class="modal fade" id="challenge-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="challenge-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -123,20 +125,22 @@ define('SELF_FILE', __FILE__);
                     <div id="challenge-file"></div>
                     <div id="challenge-flag">
 
-<div style="padding: 100px 100px 10px;">
-    <div class="bs-example bs-example-form" role="form">
-        <div class="row">
-            <div class="">
-                <div class="input-group">
-                    <input type="text" placeholder="flag" id="flag-content" class="form-control">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" id="flag-submit" type="button">Submit</button>
-                    </span>
-                </div><!-- /input-group -->
-            </div>
-        </div><!-- /.row -->
-    </div>
-</div>
+                        <div style="padding: 100px 100px 10px;">
+                            <div class="bs-example bs-example-form" role="form">
+                                <div class="row">
+                                    <div class="">
+                                        <div class="input-group">
+                                            <input type="text" placeholder="flag" id="flag-content"
+                                                class="form-control">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" id="flag-submit"
+                                                    type="button">Submit</button>
+                                            </span>
+                                        </div><!-- /input-group -->
+                                    </div>
+                                </div><!-- /.row -->
+                            </div>
+                        </div>
 
                     </div>
                     <div id="challenge-solved">You had solved this challenge.</div>

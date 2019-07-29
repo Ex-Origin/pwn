@@ -2,9 +2,13 @@
 include_once('../config.php');
 
 if(isset($_SESSION['captcha_code'])){
-    if($_SESSION['captcha_code'] && $_SESSION['captcha_code'] !== $_POST['captcha_code']){
+    if($_SESSION['captcha_code'] && $_SESSION['captcha_code'] !== strtolower($_POST['captcha_code'])){
         die("captcha_code error");
+    }else{
+        unset($_SESSION['captcha_code']);
     }
+}else{
+    die("captcha_code error");
 }
 
 $email = addslashes($_POST['email']);
@@ -17,6 +21,10 @@ if($email == '' || $nickname == '' || $_POST['password'] == ''){
 
 if(strlen($_POST['password']) < 6){
     die("Password can not be empty for at least six!");
+}
+
+if(strlen($_POST['nickname']) > 20 || strlen($_POST['email']) > 100){
+    die("Nickname or email is too long!");
 }
 
 if(!preg_match('/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/', $email)){
