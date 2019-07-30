@@ -93,7 +93,7 @@ join user as d
 on a.uid=d.uid
 
 where a.uid=$uid and a.cid=$cid
-order by c.time
+order by c.time desc
 ";
                 $result = $conn->query($sql);
             }
@@ -117,7 +117,7 @@ order by c.time
                             $row = $result->fetch_assoc();
                             echo "<tr>";
                             echo "<td>".(string)($i + 1)."</td>";
-                            echo '<td><a href="'.(relative(SELF_FILE)).'user/writeups_content.php?wid='.$row['wid'].'">'.$row['nickname']."</a></td>";
+                            echo '<td><a href="'.(relative(SELF_FILE)).'user/writeups_content.php?wid='.$row['wid'].'">'.htmlspecialchars($row['nickname'])."</a></td>";
                             echo "<td>".$row['time']."</td>";
                             echo '<td><a href="'.(relative(SELF_FILE)).'user/writeups_content.php?wid='.$row['wid'].'">'."View</a></td>";
                             echo "</tr>";

@@ -39,7 +39,7 @@ define('SELF_FILE', __FILE__);
                     }
                 }
             }
-            $sql = "select name,times,cid from (select a.name as name, count(b.sid) as times, a.cid as cid from challenge as a left join solved as b on a.cid=b.cid group by a.name) as c order by times desc";
+            $sql = "select name,times,cid from (select a.name as name, count(b.sid) as times, a.cid as cid from challenge as a left join solved as b on a.cid=b.cid group by a.name) as c order by times desc, cid";
             $result = $conn->query($sql);
             $length = $result->num_rows;
 

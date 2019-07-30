@@ -27,7 +27,7 @@ define('SELF_FILE', __FILE__);
             <h2 class="text-center">Rank</h2>
             <?php
             $conn = get_sql_conn();
-            $sql = "select * from (select a.nickname as nickname, count(b.sid) as solved from user as a left join solved as b on a.uid=b.uid limit 100) as c order by solved desc";
+            $sql = "select * from (select a.nickname as nickname, count(b.sid) as solved from user as a left join solved as b on a.uid=b.uid group by a.nickname limit 100) as c order by solved desc";
             $result = $conn->query($sql);
             ?>
 

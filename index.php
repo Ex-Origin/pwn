@@ -68,6 +68,7 @@ define('SELF_FILE', __FILE__);
 							<p class="hero-paragraph is-revealing">It's just like <a target="_blank"
 									href="https://pwnable.tw/">pwnable.tw</a> for hackers to test and expand their
 								binary exploiting skills.</p>
+							<p class="hero-paragraph is-revealing">This website is open source, source code: <a href="https://github.com/Ex-Origin/pwn" target="_blank">https://github.com/Ex-Origin/pwn</a></p>
 						</div>
 						<div class="hero-illustration">
 							<div class="hero-bg">
@@ -518,8 +519,11 @@ define('SELF_FILE', __FILE__);
 									</div>
 									<ul>
 										<li>Email: 2462148389@qq.com</li>
-										<li>QQ group: 570295461</li>
+										<li>QQ group: 570295461 (<a href="https://www.xmcve.com/" target="_blank">www.xmcve.com</a>)</li>
+										<li>Main website: <a href="http://www.eonew.cn/" target="_blank">www.eonew.cn</a></li>
 									</ul>
+
+									<h4><code>Welcome all friends to join <a href="https://www.xmcve.com/" target="_blank">星盟安全</a> team.</code></h4>
 								</div>
 							</div>
 						</div>

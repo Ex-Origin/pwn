@@ -1194,6 +1194,10 @@ main {
     border-radius: 10%;
 }
 
+.challenge{
+	margin-bottom: 2em ;
+}
+
 .challenge .bg-success h3, .challenge .bg-success h5{
     color: black;
 }
@@ -1210,4 +1214,7 @@ article h1, article h2, article h3, article h4, article h5, article h6, article 
 }
 .author{
 	margin-right: 2em;
+}
+#challenge-content{
+	margin-bottom: 1em;
 }

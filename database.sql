@@ -24,7 +24,8 @@ create table `solved`(
     `time` char(20) not null,
 
     foreign key(`uid`) REFERENCES `user`(`uid`),
-    foreign key(`cid`) REFERENCES `challenge`(`cid`)
+    foreign key(`cid`) REFERENCES `challenge`(`cid`),
+    unique(`uid`, `cid`)
 )charset=utf8;
 
 drop table if exists `writeups`;

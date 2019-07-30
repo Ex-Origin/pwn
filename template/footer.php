@@ -26,7 +26,7 @@
     </div>
     <div class="container">
         <div class="site-footer-inner has-top-divider">
-            <div class="footer-copyright">&copy; Nobody </div>
+            <div class="footer-copyright">&copy; &emsp;<a href="http://www.eonew.cn/contact.php" target="_blank">Ex</a>&emsp;&&emsp;<a href="https://www.xmcve.com/" target="_blank">星盟安全</a>&emsp;&&emsp;Merak </div>
         </div>
     </div>
 </footer>

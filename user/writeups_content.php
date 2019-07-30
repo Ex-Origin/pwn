@@ -70,7 +70,7 @@ $conn->close();
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Writeups - <?php echo $name; ?> by <?php echo $nickname; ?></title>
+    <title>Writeups - <?php echo $name; ?> by <?php echo htmlspecialchars($nickname); ?></title>
 
     <!-- source_header -->
     <?php include_once(ROOT_DIR.'template/source_header.php'); ?>
@@ -84,7 +84,7 @@ $conn->close();
 
         <div class="container">
             <h2 class="text-center">Writeups - <?php echo $name; ?></h2>
-            <p class="author text-right">Author: <?php echo $nickname; ?></p>
+            <p class="author text-right">Author: <?php echo htmlspecialchars($nickname); ?></p>
             <p class="text-right">Submit time: <?php echo $time; ?></p>
             <article class="markdown" style="min-height:20em;"><?php echo htmlspecialchars($writeup); ?></article>
 
