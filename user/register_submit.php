@@ -38,7 +38,8 @@ $sql = "select uid from user where binary email='$email' or binary nickname='$ni
 $result = $conn->query($sql);
 
 if($result->num_rows == 0){
-    $sql = "insert into `user` (email, nickname, password)values('$email', '$nickname', '$password')";
+    $str_time = addslashes(date("Y-m-d H:i:s"));
+    $sql = "insert into `user` (email, nickname, password, register_time)values('$email', '$nickname', '$password', '$str_time')";
     if ($conn->query($sql) === TRUE) {
         echo "success";
     }else{

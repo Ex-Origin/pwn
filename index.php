@@ -24,36 +24,7 @@ define('SELF_FILE', __FILE__);
 			<div class="container-fluid container">
 				<div class="site-header-inner">
 					<div class="brand header-brand">
-						<h1 class="m-0">
-							<a href="#">
-								<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-									<title>Ellie</title>
-									<defs>
-										<linearGradient x1="0%" y1="0%" y2="100%" id="logo-a">
-											<stop stop-color="#4353FF" offset="0%" />
-											<stop stop-color="#4353FF" stop-opacity=".32" offset="100%" />
-										</linearGradient>
-										<linearGradient x1="0%" y1="0%" y2="100%" id="logo-b">
-											<stop stop-color="#4353FF" offset="0%" />
-											<stop stop-color="#4353FF" stop-opacity=".32" offset="100%" />
-										</linearGradient>
-										<linearGradient x1="0%" y1="0%" y2="100%" id="logo-c">
-											<stop stop-color="#78F9FF" stop-opacity=".24" offset="0%" />
-											<stop stop-color="#43F1FF" offset="55.496%" />
-											<stop stop-color="#43F1FF" stop-opacity=".24" offset="100%" />
-										</linearGradient>
-									</defs>
-									<g fill="none" fill-rule="evenodd">
-										<path d="M4 0h12v16H0V4a4 4 0 0 1 4-4z" fill="url(#logo-a)" />
-										<path d="M16 16h16v12a4 4 0 0 1-4 4H16V16z" fill="url(#logo-b)" />
-										<path d="M11.5 20.5H.5v1h10v10h1v-11z" stroke="url(#logo-c)"
-											transform="matrix(-1 0 0 1 12 0)" />
-										<path d="M31.5.5h-11v1h10v10h1V.5z" stroke="url(#logo-c)"
-											transform="matrix(1 0 0 -1 0 12)" />
-									</g>
-								</svg>
-							</a>
-						</h1>
+						<img src="<?php echo (relative(SELF_FILE)); ?>images/xingmeng.png" style="width:96px" />
 					</div>
 				</div>
 			</div>

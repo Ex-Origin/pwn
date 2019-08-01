@@ -102,7 +102,10 @@ define('SELF_FILE', __FILE__);
                                 $('#register-sucess').modal('show');
                             } else if (data == "captcha_code error") {
                                 $('#captcha_code-error').modal('show');
-                            } else {
+                            } else if(data == "Email is invalid"){
+                                $('#email-error').modal('show');
+                            }
+                            else{
                                 $('#error-info').text(data);
                                 $('#register-error').modal('show');
                             }
@@ -128,16 +131,15 @@ define('SELF_FILE', __FILE__);
         </div><!-- /.modal-dialog -->
     </div>
 
-    <div class="modal fade" id="login-failed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div class="modal fade" id="email-error" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title error" id="myModalLabel">Login Failed</h4>
+                    <h4 class="modal-title error" id="myModalLabel">Email Error</h4>
                 </div>
-                <div class="modal-body">Please enter a correct email and password. Note that both fields may be
-                    case-sensitive. </div>
+                <div class="modal-body">The email you entered is invalid, please enter a correct email. </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
@@ -167,7 +169,7 @@ define('SELF_FILE', __FILE__);
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title error" id="myModalLabel">Register Success</h4>
+                    <h4 class="modal-title success" id="myModalLabel">Register Success</h4>
                 </div>
                 <div class="modal-body">Now you can login and submit your flag!</div>
                 <div class="modal-footer">

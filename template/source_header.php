@@ -7,7 +7,10 @@
 <!-- Style -->
 <link href="<?php echo (relative(SELF_FILE)); ?>css/style.css" rel="stylesheet">
 
-<link rel="shortcut icon" href="<?php echo (relative(SELF_FILE)); ?>favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="<?php echo (relative(SELF_FILE)); ?>images/favicon.png"/>
 
 <link href="https://fonts.googleapis.com/css?family=Heebo:400,400i,500,700|Titillium+Web:600" rel="stylesheet">
 <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+
+<meta name="keywords" content="pwn,pwn challenge">
+<meta name="description" content="It's just like pwnable.tw for hackers to test and expand their binary exploiting skills.">
