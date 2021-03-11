@@ -27,24 +27,26 @@ define('SELF_FILE', __FILE__);
             <h2 class="text-center">Writeups</h2>
             <p>You can share write-up or exploit code in your profile, only players who also solved the same challenge are able to see them.</p>
             <?php
-            if(isset($_SESSION['uid'])){
-                $conn = get_sql_conn();
-                $uid = (int)addslashes($_SESSION['uid']);
-                $sql = "
-select b.name as name, count(c.wid) writeup, b.cid as cid
+            $conn = get_sql_conn();
+            $uid = (int)addslashes($_SESSION['uid']);
+            $sql = "
+select * from
+(select b.name as name, count(c.wid) writeup, b.cid as cid
 from solved as a 
-left join challenge as b 
+
+right join challenge as b 
 on a.cid=b.cid 
+
 left join writeups as c
 on a.sid=c.sid
-where a.uid=$uid
-group by b.name
-order by a.time desc
+
+group by b.name, b.cid
+order by b.cid) e
+
+order by writeup desc
 ";
-                $result = $conn->query($sql);
-                $conn->close();
-            }
-            
+            $result = $conn->query($sql);
+            $conn->close();
             ?>
 
             <table class="table table-hover table-bordered">
@@ -52,7 +54,7 @@ order by a.time desc
                     <tr>
                         <th>#</th>
                         <th>Name</th>
-                        <th>solved</th>
+                        <th>Submit times</th>
                         <th> </th>
                     </tr>
                 </thead>
@@ -64,8 +66,8 @@ order by a.time desc
                             $row = $result->fetch_assoc();
                             echo "<tr>";
                             echo "<td>".(string)($i + 1)."</td>";
-                            echo '<td><a href="'.(relative(SELF_FILE)).'user/writeups_challenge.php?cid='.$row['cid'].'">'.$row['name']."</a></td>";
-                            echo "<td>".$row['writeup']."</td>";
+                            echo '<td><a href="'.(relative(SELF_FILE)).'user/writeups_challenge.php?cid='.$row['cid'].'">'.htmlspecialchars($row['name'])."</a></td>";
+                            echo "<td>".htmlspecialchars($row['writeup'])."</td>";
                             echo '<td><a href="'.(relative(SELF_FILE)).'user/writeups_challenge.php?cid='.$row['cid'].'">'."View</a></td>";
                             echo "</tr>";
                         }
