@@ -4,31 +4,47 @@ include_once('../config.php');
 
 define('SELF_FILE', __FILE__);
 
+$error = "";
+
 if(!isset($_GET['cid'])){
-    die("Error argument!");
+    $error .= ("<h3 class=\"error-wruteup\">Error argument!</h3>");
 }
 
-if(!isset($_SESSION['uid'])){
-    die("You should login first!");
+if(!$error && !isset($_SESSION['uid'])){
+    $error .= ("<h3 class=\"error-wruteup\">You should login first!</h3>");
 }
-
-
-$cid = (int)addslashes($_GET['cid']);
-$uid = (int)addslashes($_SESSION['uid']);
 
 $conn = get_sql_conn();
-$sql = "select b.name as name from solved as a join challenge as b on a.cid=b.cid where a.uid=$uid and b.cid=$cid";
-$result = $conn->query($sql);
-if($result->num_rows == 0){
-    die("You can share write-up or exploit code in your profile, only players who also solved the same challenge are able to see them.");
-    $conn->close();
-}else if($result->num_rows != 1){
-    die("Unkown error!");
-    $conn->close();
+$name = "NULL";
+
+if(!$error && isset($_SESSION['uid']) && isset($_GET['cid'])){
+    $cid = (int)addslashes($_GET['cid']);
+    $uid = (int)addslashes($_SESSION['uid']);
+
+    // Check the user whether to finished the challenge.
+    $sql = "select b.name as name from solved as a join challenge as b on a.cid=b.cid where a.uid=$uid and b.cid=$cid";
+    $result = $conn->query($sql);
+    if($result->num_rows == 0){
+        $error .= ("<h3 class=\"error-wruteup\">You haven't finished the challenge, so that you can't see these writeups.</h3>");
+    }else if($result->num_rows != 1){
+        $error .= ("<h3 class=\"error-wruteup\">Unkown error!</h3>");
+    }else{
+        $row = $result->fetch_assoc();
+        $name = $row['name'];
+    }
 }
 
-$row = $result->fetch_assoc();
-$name = $row['name'];
+if ($error && isset($_GET['cid'])) {
+    $cid = (int)addslashes($_GET['cid']);
+
+    $sql = "select name from challenge where cid=$cid";
+    $result = $conn->query($sql);
+
+    if($result->num_rows == 1){
+        $row = $result->fetch_assoc();
+        $name = $row['name'];
+    }
+}
 
 
 ?>
@@ -53,8 +69,11 @@ $name = $row['name'];
 
         <div class="container">
             <h2 class="text-center">Writeups - <?php echo $name; ?> - Submit</h2>
+
+            <?php if($error){echo $error;}else{ ?>
+
             <div class="form-group">
-                <label class="control-label" for="textarea">You can share your own write-up.</label>
+                <label class="control-label" for="textarea">You can share your own write-up. ( <span style="color:green;">Support for markdown format</span> )</label>
                 <textarea class="form-control"  name="writeup" id="writeup" rows="6" placeholder="your writeup"></textarea>
             </div>
 
@@ -92,12 +111,11 @@ on a.sid=c.sid
 join user as d
 on a.uid=d.uid
 
-where a.uid=$uid and a.cid=$cid
+where a.cid=$cid
 order by c.time desc
 ";
                 $result = $conn->query($sql);
             }
-            $conn->close();
             ?>
 
             <table class="table table-hover table-bordered">
@@ -127,7 +145,7 @@ order by c.time desc
                 </tbody>
             </table>
 
-
+            <?php } ?>
         </div>
 
         <!-- footer -->
@@ -199,3 +217,7 @@ order by c.time desc
 </body>
 
 </html>
+
+<?php
+$conn->close();
+?>
