@@ -31,7 +31,7 @@ on a.sid=c.sid
 join user as d
 on a.uid=d.uid
 
-where a.uid=$uid and c.wid=$wid
+where c.wid=$wid
 ";
 
 $result = $conn->query($sql);
@@ -50,10 +50,11 @@ $time = $row['time'];
 $writeup = $row['writeup'];
 $cid = (int)addslashes($row['cid']);
 
+// Check the user whether to finished the challenge.
 $sql = "select b.name as name from solved as a join challenge as b on a.cid=b.cid where a.uid=$uid and b.cid=$cid";
 $result = $conn->query($sql);
 if($result->num_rows == 0){
-    die("You can share write-up or exploit code in your profile, only players who also solved the same challenge are able to see them.");
+    die("You haven't finished the challenge, so that you can't see these writeups.");
     $conn->close();
 }else if($result->num_rows != 1){
     die("Unkown error!");
@@ -89,6 +90,9 @@ $conn->close();
             <article class="markdown" style="min-height:20em;"><?php echo htmlspecialchars($writeup); ?></article>
 
         </div>
+
+        <!-- footer -->
+        <?php include_once(ROOT_DIR.'template/footer.php'); ?>
 
         <!-- source_footer -->
         <?php include_once(ROOT_DIR.'template/source_footer.php'); ?>
