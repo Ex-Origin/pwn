@@ -35,21 +35,26 @@ if($conn->query($sql)){
 
 
 if(isset($_POST['new_password']) && $_POST['new_password']){
-    $current_password = addslashes(hash("sha256", $_POST['current_password']));
-    $new_password = addslashes(hash("sha256", $_POST['new_password']));
-    $sql = "select uid from user where binary password='$current_password' and uid=$uid";
-    $result = $conn->query($sql);
+    if(strlen($_POST['new_password']) >= 6){
+        $current_password = addslashes(hash("sha256", $_POST['current_password']));
+        $new_password = addslashes(hash("sha256", $_POST['new_password']));
+        $sql = "select uid from user where binary password='$current_password' and uid=$uid";
+        $result = $conn->query($sql);
 
-    if($result->num_rows == 1){
-        $sql = "update user set password='$new_password' where uid=$uid";
-        if($conn->query($sql)){
-            echo "Password has been updated successfully! ";
+        if($result->num_rows == 1){
+            $sql = "update user set password='$new_password' where uid=$uid";
+            if($conn->query($sql)){
+                echo "Password has been updated successfully! ";
+            }else{
+                echo "Modify password failed! Unknow Error! ";
+            }
         }else{
-            echo "Modify password failed! Unknow Error! ";
+            echo "Modify password failed! Please enter a correct password. Note that both fields may be case-sensitive. ";
         }
     }else{
-        echo "Modify password failed! Please enter a correct password. Note that both fields may be case-sensitive. ";
+        echo "Password can not be empty for at least six! ";
     }
+    
 }
 
 $conn->close();
