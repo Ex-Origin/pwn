@@ -39,7 +39,7 @@ define('SELF_FILE', __FILE__);
                     }
                 }
             }
-            $sql = "select name,times,cid from (select a.name as name, count(b.sid) as times, a.cid as cid from challenge as a left join solved as b on a.cid=b.cid group by a.name) as c order by times desc, cid";
+            $sql = "select name,times,cid from (select distinct a.name as name, count(b.sid) as times, a.cid as cid from challenge as a left join solved as b on a.cid=b.cid group by cid,a.name) as c order by times desc, cid";
             $result = $conn->query($sql);
             $length = $result->num_rows;
 
@@ -80,7 +80,7 @@ define('SELF_FILE', __FILE__);
                     $("#challenge-info").attr("cid", data.cid);
                     $("#challenge-name").text(data.name);
                     $("#challenge-content").html(data.content);
-                    $("#challenge-file").html(data.file.replace(" ", "<br/>"));
+                    $("#challenge-file").html(data.file.replace(/ /g, "<br/>"));
                     if (data.isSolved == "true") {
                         $("#challenge-flag").hide();
                         $("#challenge-solved").show();
@@ -143,7 +143,7 @@ define('SELF_FILE', __FILE__);
                         </div>
 
                     </div>
-                    <div id="challenge-solved">You had solved this challenge.</div>
+                    <div id="challenge-solved" style="margin-top:2em;"><p class="text-center" style="color:green;">You had solved this challenge.</p></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
