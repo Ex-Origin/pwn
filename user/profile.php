@@ -32,6 +32,7 @@ $conn = get_sql_conn();
 
         <div class="container">
             <h1 class="text-center">Profile</h1>
+            <hr />
             <div>
                 <?php
                 $sql = "select email, nickname, comment, register_time, count(sid) as times from user a left join solved b on a.uid=b.uid where a.uid=$uid";
@@ -47,37 +48,48 @@ $conn = get_sql_conn();
                 ?>
 
                 <div class="row">
-                <div class="col-md-3 col-lg-3"></div>
-                <div class="col-md-6 col-lg-6">
-                    <div class="col-sm-5 control-label" style="text-align:right;">Email: </div>
-                    <div class="col-sm-7"><?php echo htmlspecialchars($row['email']); ?></div>
+                    <div class="col-md-3 col-lg-3"></div>
+                    <div class="col-md-6 col-lg-6" style="text-align:center">
+                        <table class="profile">
+                            <tr>
+                                <td>Email: </td>
+                                <td><?php echo htmlspecialchars($row['email']); ?></td>
+                            </tr>
+                            <tr>
+                                <td>Nickname: </td>
+                                <td><?php echo htmlspecialchars($row['nickname']); ?></td>
+                            </tr>
+                            <tr>
+                                <td>Comment:</td>
+                                <td><?php echo $comment ? $comment : "NULL"; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Register time: </td>
+                                <td><?php echo htmlspecialchars($row['register_time']); ?> </td>
+                            </tr>
+                            <tr>
+                                <td>Solved times: </td>
+                                <td><?php echo htmlspecialchars($row['times']); ?></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-3 col-lg-3"></div>
 
-                    <div class="col-sm-5 control-label" style="text-align:right;">Nickname: </div>
-                    <div class="col-sm-7"><?php echo htmlspecialchars($row['nickname']); ?></div>
 
-                    <div class="col-sm-5 control-label" style="text-align:right;">Comment: </div>
-                    <div class="col-sm-7"><?php echo $comment ? $comment : "NULL"; ?></div>
+                </div>
 
-                    <div class="col-sm-5 control-label" style="text-align:right;">Register time: </div>
-                    <div class="col-sm-7"><?php echo htmlspecialchars($row['register_time']); ?></div>
-
-                    <div class="col-sm-5 control-label" style="text-align:right;">Solved times: </div>
-                    <div class="col-sm-7"><?php echo htmlspecialchars($row['times']); ?></div>
-
-                    <p class="text-center" style="margin-top:8em;"><button type="submit" class="btn btn-default" id="edit-profile-button">Edit Profile</button></p>
-                    
-                <div class="col-md-3 col-lg-3"></div>
-
-            </div>
+                <p class="text-center" style="margin-top:2em;"><button type="submit" class="btn btn-default"
+                        id="edit-profile-button">Edit Profile</button></p>
             </div>
 
             <h1 class="text-center">Solved Challenge</h1>
+            <hr />
             <?php
             $sql = "select b.name as name, a.time as time, b.cid as cid  from solved a right join challenge b on a.cid=b.cid where a.uid=$uid order by a.time";
             $result = $conn->query($sql);
             ?>
 
-<table class="table table-hover table-bordered">
+            <table class="table table-hover table-bordered" style="margin-bottom:6em;">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -101,6 +113,42 @@ $conn = get_sql_conn();
                     ?>
                 </tbody>
             </table>
+
+            <h1 class="text-center">Submited Writeup</h1>
+            <hr />
+            <?php
+            $sql = "select b.name as name, a.time as time, c.wid as wid  
+                    from solved a right join challenge b on a.cid=b.cid join writeups c on a.sid=c.sid
+                    where a.uid=$uid order by a.time";
+            $result = $conn->query($sql);
+            ?>
+
+            <table class="table table-hover table-bordered" style="margin-bottom:6em;">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Submited time</th>
+                        <th>Operator</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $length = $result->num_rows;
+                    for($i = 0; $i < $length; $i++){
+                        $row = $result->fetch_assoc();
+                        echo "<tr>";
+                        echo "<td>".(string)($i + 1)."</td>";
+                        echo "<td>".htmlspecialchars($row['name'])."</td>";
+                        echo "<td>".htmlspecialchars($row['time'])."</td>";
+                        echo '<td class="writeup-add"><a href="'.(relative(SELF_FILE)).'user/writeups_content.php?wid='.$row['wid'].'">'.
+                            '<button class="btn btn-default" id="registerButton">View</button></a> '.
+                            '<a><button class="btn btn-default delete-button" wid="'.$row['wid'].'">Delete</button></a></td>';
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
 
         <!-- source_footer -->
@@ -110,18 +158,18 @@ $conn = get_sql_conn();
 
     <script>
         $(document).ready(function () {
-            $("#edit-profile-button").click(function(){
+            $("#edit-profile-button").click(function () {
                 $("#edit-profile").modal("show");
             });
 
             $("#edit-profile-submit").click(function () {
-                if($("#new-password").val() != $("#confirm-password").val()){
+                if ($("#new-password").val() != $("#confirm-password").val()) {
                     alert("The new password is different from comfirm password, please check again!");
                     return;
                 }
 
                 var length = $("#new-password").val().length;
-                if(length != 0 && length < 6){
+                if (length != 0 && length < 6) {
                     alert("Password can not be empty for at least six!");
                     return;
                 }
@@ -133,9 +181,26 @@ $conn = get_sql_conn();
                     new_password: $("#new-password").val(),
                     captcha_code: $("#captcha_code").val()
                 },
-                function (data, status) {
-                    alert(data);
-                });
+                    function (data, status) {
+                        alert(data);
+                    });
+            });
+
+            $(".delete-button").click(function () {
+                var id = $(this).attr("wid");
+                $.post("<?php echo (relative(SELF_FILE)); ?>user/writeup_delete.php", {
+                    wid: id
+                },
+                    function (data, status) {
+                        if(data == "true"){
+                            alert("Delete successfully.");
+                            window.location.reload(true);
+                        }else if(data == "false"){
+                            alert("Delete failed!");
+                        }else{
+                            alert("Unknown Error!");
+                        }
+                    });
             });
         });
     </script>
@@ -146,7 +211,7 @@ $conn = get_sql_conn();
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title text-center" >Edit Profile</h4>
+                    <h4 class="modal-title text-center">Edit Profile</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal">
@@ -160,7 +225,8 @@ $conn = get_sql_conn();
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Current Password</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" id="current-password" name="current-password" placeholder="Current Password">
+                                <input type="password" class="form-control" id="current-password"
+                                    name="current-password" placeholder="Current Password">
                             </div>
                         </div>
                         <div class="form-group">
@@ -173,8 +239,8 @@ $conn = get_sql_conn();
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Confirm Password</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" id="confirm-password" name="confirm-password"
-                                    placeholder="Confirm Password">
+                                <input type="password" class="form-control" id="confirm-password"
+                                    name="confirm-password" placeholder="Confirm Password">
                             </div>
                         </div>
                         <div class="form-group">
