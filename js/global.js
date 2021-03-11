@@ -14,6 +14,7 @@ $(document).ready(function(){
 
         content = content.replace(/&amp;lt;/g,'&lt;');
         content = content.replace(/&amp;gt;/g,'&gt;');
+        content = content.replace(/&amp;amp;/g,'&amp;');
         
         $(this).html(content);
     });
