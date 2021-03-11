@@ -1205,12 +1205,20 @@ main {
 	margin-bottom: 30em;
 }
 article{
-	background-color: white;
+	/* background-color: white; */
 	border: 3px #e5e5e5 solid;
+	padding: 1em;
+	margin-bottom: 15em;
+}
+
+article{
+	color:white;
+}
+article pre{
 	padding: 0.3em;
 }
 article h1, article h2, article h3, article h4, article h5, article h6, article h7, article h8{
-	color: #000;
+	color: rgb(248, 251, 36);
 }
 .author{
 	margin-right: 2em;
@@ -1232,4 +1240,27 @@ article h1, article h2, article h3, article h4, article h5, article h6, article 
 
 .table-hover > tbody > tr:hover{
 	background-color: darkblue;
+}
+.error-wruteup{
+	color: red;
+	text-align: center;
+	margin-bottom: 6em;
+}
+
+.links ul{
+	list-style: none;
+}
+
+.links li{
+	margin-bottom: 0.6em;
+}
+
+.link-icon{
+	width: 32px;
+	border-radius: 90%;
+	float: left;
+}
+
+.link-content{
+	padding-left: 50px;
 }
