@@ -35,7 +35,7 @@ if($conn->query($sql)){
 
 
 if(isset($_POST['new_password']) && $_POST['new_password']){
-    if(strlen($_POST['new_password']) >= 6){
+    if(strlen($_POST['new_password']) >= 8){
         $current_password = addslashes(hash("sha256", $_POST['current_password']));
         $new_password = addslashes(hash("sha256", $_POST['new_password']));
         $sql = "select uid from user where binary password='$current_password' and uid=$uid";
@@ -52,7 +52,7 @@ if(isset($_POST['new_password']) && $_POST['new_password']){
             echo "Modify password failed! Please enter a correct password. Note that both fields may be case-sensitive. ";
         }
     }else{
-        echo "Password can not be empty for at least six! ";
+        echo "Password can not be empty for at least eight! ";
     }
     
 }

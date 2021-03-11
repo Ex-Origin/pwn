@@ -19,8 +19,8 @@ if($email == '' || $nickname == '' || $_POST['password'] == ''){
     die("Email or nickname or password can't be empty!");
 }
 
-if(strlen($_POST['password']) < 6){
-    die("Password can not be empty for at least six!");
+if(strlen($_POST['password']) < 8){
+    die("Password can not be empty for at least eight!");
 }
 
 if(strlen($_POST['nickname']) > 20 || strlen($_POST['email']) > 100){
