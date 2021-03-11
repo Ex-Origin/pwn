@@ -85,7 +85,7 @@ define('SELF_FILE', __FILE__);
                     return;
                 }
 
-                if ($("#password").val().length < 6) {
+                if ($("#password").val().length < 8) {
                     $('#password-error').modal('show');
                     return;
                 }
@@ -155,7 +155,7 @@ define('SELF_FILE', __FILE__);
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h4 class="modal-title error" id="myModalLabel">Password Error</h4>
                 </div>
-                <div class="modal-body">Password can not be empty for at least six!</div>
+                <div class="modal-body">Password can not be empty for at least eight!</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
