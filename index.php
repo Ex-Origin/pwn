@@ -23,8 +23,8 @@ define('SELF_FILE', __FILE__);
 		<header class="site-header navbar">
 			<div class="container-fluid container">
 				<div class="site-header-inner">
-					<div class="brand header-brand">
-						<img src="<?php echo (relative(SELF_FILE)); ?>images/xingmeng.png" style="width:96px" />
+					<div class="brand header-brand row">
+						<div class="col-md-12 col-lg-12"><img src="<?php echo (relative(SELF_FILE)); ?>images/xingmeng.png" style="width:100px" /></div>
 					</div>
 				</div>
 			</div>
@@ -427,12 +427,13 @@ define('SELF_FILE', __FILE__);
 									<ul>
 										<li>Try to find out the vulnerabilities exists in the challenges, exploit the
 											remote services to get flags.</li>
-										<li>The flag is usually at <code>/home/pwn/flag</code>, but sometimes you have
+										<li>The flag is usually at <code>./flag</code> for Linux, and <code>.\flag.txt</code> for Windows, but sometimes you have
 											to get a shell to read them.</li>
-										<li>Most of challenges are running on <code>Ubuntu 16.04/18.04</code> docker
+										<li>Most of challenges are running on <code>Ubuntu 16.04/18.04/19.04</code> docker
 											image.</li>
 										<li>You can share write-up or exploit code in your profile, only players who
 											also solved the same challenge are able to see them.</li>
+										<li>Windows service program: <code>http://file.eonew.cn/pwn_challenge/tools/AppJailLauncher.exe</code> </li>
 									</ul>
 								</div>
 							</div>
@@ -489,14 +490,118 @@ define('SELF_FILE', __FILE__);
 										<h4 class="feature-title m-0">Contact</h4>
 									</div>
 									<ul>
-										<li>Email: 2462148389@qq.com</li>
-										<li>QQ group: 570295461 (<a href="https://www.xmcve.com/" target="_blank">www.xmcve.com</a>)</li>
-										<li>Main website: <a href="http://www.eonew.cn/" target="_blank">www.eonew.cn</a></li>
+										<li>Admin-Email: 2462148389@qq.com</li>
+										<li>QQ group: 570295461</li>
+										<li>Main website: <a href="http://www.xmcve.com/" target="_blank">www.xmcve.com</a></li>
 									</ul>
 
-									<h4><code>Welcome all friends to join <a href="https://www.xmcve.com/" target="_blank">星盟安全</a> team.</code></h4>
+									<h4><code>Welcome all friends to join <a href="http://www.xmcve.com/" target="_blank">XMCVE</a>.</code></h4>
 								</div>
 							</div>
+
+							<div class="feature links">
+								<div class="feature-inner">
+									<div class="feature-header mb-16">
+										<div class="feature-icon mr-16">
+											<div ><img width="32" height="32" src="<?php echo (relative(SELF_FILE)); ?>images/link.svg" /></div>
+										</div>
+										<h4 class="feature-title m-0">Links</h4>
+									</div>
+									<ul>
+										<li>
+											<a target="_blank" href="https://0ops.sjtu.cn/">
+												<div>
+													<img class="link-icon" src="<?php echo (relative(SELF_FILE)); ?>images/links/oops.jpg" >
+
+												</div>
+												<div class="link-content m-0">0ops</div>
+											</a>
+										</li>
+										<li>
+											<a target="_blank" href="https://l3hsec.com/">
+												<div>
+													<img class="link-icon" src="<?php echo (relative(SELF_FILE)); ?>images/links/l3hsec.png" >
+
+												</div>
+												<div class="link-content m-0">L3H SEC</div>
+											</a>
+										</li>
+										<li>
+											<a target="_blank" href="https://www.csuaurora.org/">
+												<div>
+													<img class="link-icon" src="<?php echo (relative(SELF_FILE)); ?>images/links/aurora.jpg" >
+
+												</div>
+												<div class="link-content m-0">AuroraLab</div>
+											</a>
+										</li>
+										<li>
+											<a target="_blank" href="https://www.d0g3.cn/">
+												<div>
+													<img class="link-icon" src="<?php echo (relative(SELF_FILE)); ?>images/links/d0g3.jpg" >
+
+												</div>
+												<div class="link-content m-0">D0g3</div>
+											</a>
+										</li>
+										<li>
+											<a target="_blank" href="https://buuoj.cn/">
+												<div>
+													<img class="link-icon" src="<?php echo (relative(SELF_FILE)); ?>images/links/buuoj.gif" >
+
+												</div>
+												<div class="link-content m-0">BUUCTF</div>
+											</a>
+										</li>
+										<li>
+											<a target="_blank" href="http://cse.whu.edu.cn/">
+												<div>
+													<img class="link-icon" src="<?php echo (relative(SELF_FILE)); ?>images/links/whu.jpg" >
+
+												</div>
+												<div class="link-content m-0">Dawn</div>
+											</a>
+										</li>
+										<li>
+											<a target="_blank" href="http://www.l-team.org/">
+												<div>
+													<img class="link-icon" src="<?php echo (relative(SELF_FILE)); ?>images/links/l.jpg" >
+
+												</div>
+												<div class="link-content m-0"> L TEAM </div>
+											</a>
+										</li>
+										<li>
+											<a target="_blank" href="https://mp.weixin.qq.com/mp/qrcode?scene=10000005&size=102&__biz=MzA4NzUwMzc3NQ==&mid=2247484049&idx=2&sn=d9f2e38521056c31909bb8cf847f11c3&send_time=">
+												<div>
+													<img class="link-icon" src="<?php echo (relative(SELF_FILE)); ?>images/links/time_line.png" >
+
+												</div>
+												<div class="link-content m-0"> timeline sec </div>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<div>
+													<img class="link-icon" src="<?php echo (relative(SELF_FILE)); ?>images/links/olnu.png" >
+
+												</div>
+												<div class="link-content m-0"> OLNU </div>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<div>
+													<img class="link-icon" src="<?php echo (relative(SELF_FILE)); ?>images/links/hnusec.jpg" >
+
+												</div>
+												<div class="link-content m-0"> Hnusec </div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+
 						</div>
 					</div>
 				</div>
