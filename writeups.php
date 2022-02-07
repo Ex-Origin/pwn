@@ -28,7 +28,6 @@ define('SELF_FILE', __FILE__);
             <p>You can share write-up or exploit code in your profile, only players who also solved the same challenge are able to see them.</p>
             <?php
             $conn = get_sql_conn();
-            $uid = (int)addslashes($_SESSION['uid']);
             $sql = "
 select * from
 (select b.name as name, count(c.wid) writeup, b.cid as cid
