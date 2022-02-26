@@ -166,7 +166,7 @@ order by c.time desc
                 $.post("<?php echo (relative(SELF_FILE)); ?>user/writeup_submit.php", {
                     writeup: $("#writeup").val(),
                     captcha_code: $("#captcha_code").val(),
-                    cid: <?php echo $cid; ?>
+                    cid: <?php if(isset($_GET['cid'])){echo $cid;}else{echo -1;} ?>
                 },
                 function (data, status) {
                     if (status == "success") {
